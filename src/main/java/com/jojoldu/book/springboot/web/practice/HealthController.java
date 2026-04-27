@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HealthController {
+    // [Day01] feat(practice): /health 엔드포인트 추가
     @GetMapping("/health")
     public HealthResponseDto health() {
         return new HealthResponseDto("OK", LocalDateTime.now());
