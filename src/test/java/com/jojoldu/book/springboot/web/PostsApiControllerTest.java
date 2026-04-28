@@ -24,6 +24,7 @@ public class PostsApiControllerTest {
         private TestRestTemplate restTemplate;
         @Autowired
         private PostsRepository postsRepository;
+
         @AfterEach
         public void tearDown() {
                 postsRepository.deleteAll();
@@ -74,4 +75,42 @@ public class PostsApiControllerTest {
                 assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
                 assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
         }
+
+        @Test
+        public void Posts_전체조회() throws Exception {
+                postsRepository.save(Posts.builder().title("t1").content("c1").author("a1").build());
+                postsRepository.save(Posts.builder().title("t2").content("c2").author("a2").build());
+                postsRepository.save(Posts.builder().title("t3").content("c3").author("a3").build());
+                String url = "http://localhost:" + port + "/api/v1/posts";
+                ResponseEntity<List> responseEntity = restTemplate.getForEntity(url, List.class);
+                assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+                assertThat(responseEntity.getBody()).hasSize(3);
+        }
+
+        @Test
+        public void 작성자별_조회() {
+                // given
+                postsRepository.save(Posts.builder().title("t1").content("c1").author("kim").build());
+                postsRepository.save(Posts.builder().title("t2").content("c2").author("lee").build());
+                postsRepository.save(Posts.builder().title("t3").content("c3").author("kim").build());
+                String url = "http://localhost:" + port + "/api/v1/posts/author/kim";
+                // when
+                ResponseEntity<List> responseEntity = restTemplate.getForEntity(url, List.class);
+                // then
+                assertThat(responseEntity.getBody()).hasSize(2); // kim 작성자만 2개
+        }
+
+        @Test
+        public void 제목_키워드_검색() {
+                // given
+                postsRepository.save(Posts.builder().title("Spring Boot 입문").content("c").author("a").build());
+                postsRepository.save(Posts.builder().title("Spring Security").content("c").author("a").build());
+                postsRepository.save(Posts.builder().title("React 시작하기").content("c").author("a").build());
+                String url = "http://localhost:" + port + "/api/v1/posts/search?keyword=Spring";
+                // when
+                ResponseEntity<List> responseEntity = restTemplate.getForEntity(url, List.class);
+                // then
+                assertThat(responseEntity.getBody()).hasSize(2); // "Spring" 포함 2개
+        }
+
 }
