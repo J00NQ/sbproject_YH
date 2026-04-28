@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface PostsRepository extends JpaRepository<Posts, Long> {
     List<Posts> findByAuthor(String author);
+
+    List<Posts> findByTitleContaining(String keyword);
 }
