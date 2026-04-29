@@ -6,11 +6,15 @@ var main = {
         });
     },
     save: function () {
+        var _this = this;
         var data = {
             title: $('#title').val(),
             author: $('#author').val(),
             content: $('#content').val()
         };
+        if (!_this.validateForm(data)) {
+            return;
+        }
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',
@@ -29,7 +33,7 @@ var main = {
             alert('제목을 입력해주세요.');
             return false;
         }
-        if (!data.content || data.content.trim() === '') {       // (1) 내용 검증
+        if (!data.content || data.content.trim() === '') {
             alert('내용을 입력해주세요.');
             return false;
         }
