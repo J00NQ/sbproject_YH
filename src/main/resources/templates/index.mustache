@@ -27,7 +27,7 @@
             <td>{{modifiedDate}}</td>
         </tr>
     {{/posts}}
-    {{#no_posts}}                                  <!-- (1) inverted section 시작 -->
+    {{^posts}}
     <tr>
         <td colspan="4" class="text-center">
             등록된 게시글이 없습니다. 새 글을 작성해보세요!
