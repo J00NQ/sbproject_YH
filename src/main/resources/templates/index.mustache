@@ -12,22 +12,29 @@
     <table class="table table-horizontal table-bordered">
         <thead class="thead-strong">
         <tr>
-            <th>게시글 번호</th>
+            <th>게시글번호</th>
             <th>제목</th>
             <th>작성자</th>
             <th>최종수정일</th>
         </tr>
         </thead>
-        <tbody id="tbody">
-        {{#posts}}
-            <tr>
-                <td>{{id}}</td>
-                <td><a href="/posts/update/{{id}}">{{title}}</a></td>
-                <td>{{author}}</td>
-                <td>{{modifiedDate}}</td>
-            </tr>
-        {{/posts}}
-        </tbody>
+    <tbody id="tbody">
+    {{#posts}}
+        <tr>
+            <td>{{id}}</td>
+            <td><a href="/posts/update/{{id}}">{{title}}</a></td>
+            <td>{{author}}</td>
+            <td>{{modifiedDate}}</td>
+        </tr>
+    {{/posts}}
+    {{#no_posts}}                                  <!-- (1) inverted section 시작 -->
+    <tr>
+        <td colspan="4" class="text-center">
+            등록된 게시글이 없습니다. 새 글을 작성해보세요!
+        </td>
+    </tr>
+    {{/posts}}
+    </tbody>
     </table>
 </div>
 
