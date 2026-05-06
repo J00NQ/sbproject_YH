@@ -1,0 +1,6 @@
+* text=auto
+*.jar binary
+*.png binary
+*.gif binary
+*.jpg binary
+*.ico binary
