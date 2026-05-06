@@ -32,6 +32,7 @@ public class SecurityConfig {
                 )
 
                 .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("/", true)                              // 로그인 성공 시 무조건 메인 페이지(/)로 이동
                         .userInfoEndpoint(userInfo ->
                                 userInfo.userService(customOAuth2UserService)      // 람다 방식
                         )
