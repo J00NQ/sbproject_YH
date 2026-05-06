@@ -7,15 +7,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 public class PostsRepositoryTest {
+
     @Autowired
     PostsRepository postsRepository;
+
     @AfterEach
     public void cleanup() {
         postsRepository.deleteAll();
     }
+
     @Test
     public void 게시글저장_불러오기() {
         // given
@@ -28,11 +33,13 @@ public class PostsRepositoryTest {
                 .build());
         // when
         List<Posts> postsList = postsRepository.findAll();
+
         // then
         Posts posts = postsList.get(0);
         assertThat(posts.getTitle()).isEqualTo(title);
         assertThat(posts.getContent()).isEqualTo(content);
     }
+
     @Test
     public void BaseTimeEntity_등록() {
         //given

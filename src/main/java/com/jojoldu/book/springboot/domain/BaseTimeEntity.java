@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass                              // 자식이 컬럼으로 인식
 @EntityListeners(AuditingEntityListener.class) // Auditing 활성화
+
 public abstract class BaseTimeEntity {
     @CreatedDate
     private LocalDateTime createdDate;
